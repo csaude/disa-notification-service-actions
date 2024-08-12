@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <title th:remove="all">Sincronização de Cargas Virais</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <p>Caros,</p>
+    <p>Encontre <a href="${repoLink}">aqui</a> o relatório de sincronização, entre o servidor de integração e SESP, de resultados laboratoriais
+        de <b th:text="${fromDate}"></b> a <b th:text="${toDate}"></b>.</p>
+    <p>Para qualquer questão/dúvida por favor contactem ao <a href="https://helpdeskmoz.sis.org.mz/portal/pt/signin">Helpdesk</a> (Tel 82/86/84 - 8604886).</p>
+    <p>PS: Esta é uma notificação automática e NÃO devem responder à este email.</p>
+</body>
+
+</html>
