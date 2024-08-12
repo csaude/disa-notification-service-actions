@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <title th:remove="all">Sincronização de Cargas Virais</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <p>Caros,</p>
+    <p>Não foram enviados resultados laboratoriais do OpenLDR para o servidor de integração no período de <b
+            th:text="${fromDate}"></b> a <b th:text="${toDate}"></b>. Consequentemente, não havia nenhum resultado
+        laboratorial por sincronizar entre o servidor de
+        integração e SESP.</p>
+    <p>Para qualquer questão/dúvida por favor contactem o ponto focal da APHL.</p>
+    <p>PS: Esta é uma notificação automática e não devem responder à este email.</p>
+</body>
+
+</html>
