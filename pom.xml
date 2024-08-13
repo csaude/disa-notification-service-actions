@@ -113,7 +113,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<!--Adding jacoco plugin in pom.xml -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
