@@ -1,0 +1,37 @@
+name: Snyk Dependency Vulnerability Scan
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  snyk:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Install Maven
+      run: sudo apt-get install -y maven
+
+    - name: Install Snyk CLI
+      run: npm install -g snyk
+
+    - name: Run Snyk to check for vulnerabilities
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: snyk test --file=pom.xml
+

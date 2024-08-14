@@ -1,0 +1,35 @@
+name: EthicalCheck Security Scan
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  ethicalcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Build with Maven
+      run: mvn clean install
+
+    - name: Run EthicalCheck
+      run: |
+        curl -sL https://app.securestack.com/ethicalcheck | bash -s -- --apikey ${{ secrets.ETHICALCHECK_API_KEY }} --branch ${{ github.ref_name }}
+
+
+
