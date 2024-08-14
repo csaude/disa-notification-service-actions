@@ -18,10 +18,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Node.js (for Snyk CLI)
-      uses: actions/setup-node@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
       with:
-        node-version: '18'
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Install Maven
+      run: sudo apt-get install -y maven
 
     - name: Install Snyk CLI
       run: npm install -g snyk
@@ -30,3 +34,4 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       run: snyk test --file=pom.xml
+
