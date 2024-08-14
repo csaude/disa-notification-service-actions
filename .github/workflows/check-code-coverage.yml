@@ -1,6 +1,13 @@
 name: Verify Test Coverage
 
-on: [push, pull_request]
+on:
+  pull_request:
+    branches:
+      - dev
+
+  push:
+    branches:
+      - dev
 
 jobs:
   test:
@@ -31,8 +38,8 @@ jobs:
           echo "Coverage $COVERAGE% is acceptable."
         fi
 
-      - name: Upload coverage report
+    - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
         name: coverage-report
-        path: target/site/jacoco/jacoco.xml
+        path: target/site/jacoco/
