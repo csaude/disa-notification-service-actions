@@ -1,0 +1,16 @@
+name: Restrict PR to Dev Branch
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  check_target_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if PR is targeting dev branch
+        if: github.event.pull_request.base.ref !='dev'
+        run: |
+          echo "Pull requests are only allowed to target the 'dev' branch"
+          exit 1

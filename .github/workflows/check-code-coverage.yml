@@ -1,0 +1,45 @@
+name: Verify Test Coverage
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+  push:
+    branches:
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3 
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Build and test with Maven
+      run: mvn clean verify
+
+    - name: Verify coverage
+      run: |
+        COVERAGE=$(grep -oP '(?<=<counter type="INSTRUCTION" missed="\d+" covered="\d+" />).*(?=</counter>)' target/site/jacoco/jacoco.xml | awk '{ print $4 / ($4 + $3) * 100 }')
+        echo "Coverage: $COVERAGE%"
+        MIN_COVERAGE=65.0
+        if (( $(echo "$COVERAGE < $MIN_COVERAGE" |bc -l) )); then
+          echo "Coverage $COVERAGE% is below the minimum threshold of $MIN_COVERAGE%"
+          exit 1
+        else
+          echo "Coverage $COVERAGE% is acceptable."
+        fi
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: target/site/jacoco/
